@@ -110,15 +110,59 @@ GameEngine.prototype.startInput = function () {
     //console.log("XXXXXXXXXXXXXX");
         
         for(var i=0; i<that.keyDown.length; i++) {
+            //bullet for suitman
+            if (that.keyDown[i] === 76){
+                let xBulletPostion1=that.entities[that.entities.length-4].x;
+                let YBulletPostion1=that.entities[that.entities.length-4].y;
+                if((xBulletPostion1<0 || xBulletPostion1>1400 )||(YBulletPostion1<0 || YBulletPostion1>750)){
+                that.entities[that.entities.length-4].x = that.entities[that.entities.length-1].canvasX+25;
+                
+                that.entities[that.entities.length-4].y = that.entities[that.entities.length-1].canvasY+25;
+                }
+            }
+            //bullet1 for skull
+            if (that.keyDown[i] === 70){
+                let xBulletPostion=that.entities[that.entities.length-3].x;
+                let YBulletPostion=that.entities[that.entities.length-3].y;
+                
+                if((xBulletPostion<0 || xBulletPostion>1400 )||(YBulletPostion<0 || YBulletPostion>750)){
+                that.entities[that.entities.length-3].x = that.entities[that.entities.length-2].canvasX+25;
+                
+                that.entities[that.entities.length-3].y = that.entities[that.entities.length-2].canvasY+25;
+                }
+            }
             //console.log(that.keyDown[i]);
-            if (that.keyDown[i] === 83)         that.entities[that.entities.length-2].goForward(40); 
-            else if (that.keyDown[i] === 87)         that.entities[that.entities.length-2].goForward(38);
-            else if (that.keyDown[i] === 65)         that.entities[that.entities.length-2].goForward(37); 
-            else if (that.keyDown[i] === 68)         that.entities[that.entities.length-2].goForward(39);
-            if (that.keyDown[i] === 40)         that.entities[that.entities.length-1].goForward(40); 
-            else if (that.keyDown[i] === 38)         that.entities[that.entities.length-1].goForward(38);
-            else if (that.keyDown[i] === 37)         that.entities[that.entities.length-1].goForward(37); 
-            else if (that.keyDown[i] === 39)         that.entities[that.entities.length-1].goForward(39);
+            if (that.keyDown[i] === 83)         {
+                that.entities[that.entities.length-3].bulletFireOn(83);
+                that.entities[that.entities.length-2].goForward(40); }
+            else if (that.keyDown[i] === 87)   
+                  {
+                that.entities[that.entities.length-3].bulletFireOn(87);
+                that.entities[that.entities.length-2].goForward(38);
+            }
+            else if (that.keyDown[i] === 65) {
+                that.entities[that.entities.length-3].bulletFireOn(65);
+                    that.entities[that.entities.length-2].goForward(37); }
+            else if (that.keyDown[i] === 68)  {    
+                that.entities[that.entities.length-3].bulletFireOn(68);
+                that.entities[that.entities.length-2].goForward(39);}
+
+            if (that.keyDown[i] === 40)    {  
+                that.entities[that.entities.length-4].bulletFireOn(40);   
+                that.entities[that.entities.length-1].goForward(40); 
+                }
+            else if (that.keyDown[i] === 38)        
+            { 
+                that.entities[that.entities.length-4].bulletFireOn(38);
+                that.entities[that.entities.length-1].goForward(38);
+            }
+            else if (that.keyDown[i] === 37)         {
+                that.entities[that.entities.length-4].bulletFireOn(37);
+                that.entities[that.entities.length-1].goForward(37); }
+            else if (that.keyDown[i] === 39)         {
+                that.entities[that.entities.length-4].bulletFireOn(39);
+                that.entities[that.entities.length-1].goForward(39);
+            }
         }
     };
     setInterval(update,50);

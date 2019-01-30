@@ -149,6 +149,8 @@ MovingBackground.prototype.update = function () {
     //this.x-=this.myspeed;
     if(this.x< -this.myimgwidth) this.x = 800;
 };
+//
+
 
 
 
@@ -504,7 +506,101 @@ OBJ.prototype.draw = function (ctx) {
         this.canvasWidth, this.canvasHeight); // destination width and height
 }
 
+function Redstone(game, spritesheet,thex,they, theimgwidth,theimgheight,speed) {
+    this.x = thex;
+    this.y = they;
+    this.myimgwidth = theimgwidth;
+    this.myimgheight = theimgheight;
+    this.spritesheet = spritesheet;
+    this.game = game;
+    this.ctx = game.ctx;
+    this.myspeed = speed;
+    this.bulletFire="2";
+};
+Redstone.prototype.bulletFireOn = function(direction){
+    this.bulletFire = direction;
 
+    // console.log(this.bulletFire+"-----"+this.x);
+    // this.bulletFire = direction;
+}
+Redstone.prototype.draw = function () {
+    this.ctx.drawImage(this.spritesheet,
+                   this.x, this.y,this.myimgwidth,this.myimgheight);
+};
+
+Redstone.prototype.update = function () { 
+    //83 = down //87=up //68=right // 65=left
+    console.log("from inside----==="+ this.bulletFire);
+    if(this.x<0 || this.x>1400|| this.y<0 || this.y>750){
+        this.x = 1450;
+        this.y = 790;
+    }
+    // this.x +=1;
+    if(this.bulletFire=="83"){
+        this.y += 60;
+    }
+    if(this.bulletFire=="87"){
+        this.y -= 60;
+    }
+    if(this.bulletFire=="68"){
+        this.x += 60;
+        
+    }
+    if(this.bulletFire=="65"){
+        this.x -=60;
+    }
+    // if(this.x>600) this.x=100;
+    //this.x-=this.myspeed;
+    // if(this.x< -this.myimgwidth) this.x = 800;
+};
+//Redstone 2
+function Redstone1(game, spritesheet,thex,they, theimgwidth,theimgheight,speed) {
+    this.x = thex;
+    this.y = they;
+    this.myimgwidth = theimgwidth;
+    this.myimgheight = theimgheight;
+    this.spritesheet = spritesheet;
+    this.game = game;
+    this.ctx = game.ctx;
+    this.myspeed = speed;
+    this.bulletFire="2";
+};
+Redstone1.prototype.bulletFireOn = function(direction){
+    this.bulletFire = direction;
+
+    // console.log(this.bulletFire+"-----"+this.x);
+    // this.bulletFire = direction;
+}
+Redstone1.prototype.draw = function () {
+    this.ctx.drawImage(this.spritesheet,
+                   this.x, this.y,this.myimgwidth,this.myimgheight);
+};
+
+Redstone1.prototype.update = function () { 
+    //83 = down //87=up //68=right // 65=left
+    console.log("from inside----==="+ this.bulletFire);
+    if(this.x<0 || this.x>1400|| this.y<0 || this.y>750){
+        this.x = 1450;
+        this.y = 790;
+    }
+    // this.x +=1;
+    if(this.bulletFire=="40"){
+        this.y += 60;
+    }
+    if(this.bulletFire=="38"){
+        this.y -= 60;
+    }
+    if(this.bulletFire=="39"){
+        this.x += 60;
+        
+    }
+    if(this.bulletFire=="37"){
+        this.x -=60;
+    }
+    // if(this.x>600) this.x=100;
+    //this.x-=this.myspeed;
+    // if(this.x< -this.myimgwidth) this.x = 800;
+};
 
 
 
@@ -538,7 +634,7 @@ AM.queueDownload("./img/bush.png");
 AM.queueDownload("./img/land.png");
 
 AM.queueDownload("./img/sk.png");
-
+AM.queueDownload("./img/redstone.png");
 
 
 
@@ -690,6 +786,7 @@ gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
     gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/groza.png"),300,250,50,50,1));
     gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/m9.png"),350,150,50,50,1));
     gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/painkiller.png"),150,200,50,50,1));
+    
 
     // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/tree1.png"),
     // 200,300,200,200,2));
@@ -718,6 +815,8 @@ gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
     // gameEngine.addEntity(player);
 
     //var fire = new Fire(gameEngine);
+    gameEngine.addEntity(new Redstone1(gameEngine, AM.getAsset("./img/redstone.png"),1401,751,50,50,1));
+    gameEngine.addEntity(new Redstone(gameEngine, AM.getAsset("./img/redstone.png"),1401,751,50,50,1));
     gameEngine.addEntity(new OBJ(0,0,64,64,100,100,100,100,AM.getAsset("./img/sk.png")));
 
 
