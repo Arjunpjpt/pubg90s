@@ -57,79 +57,9 @@ Animation.prototype.isDone = function () {
     return (this.elapsedTime >= this.totalTime);
 }
 
-// function Unicorn(game) {
-//     this.animation = new Animation(AM.getAsset("./img/runingman.png"), 0, 0, 165, 295, 0.05, 25, true, false);
-//     this.jumpAnimation = new Animation(AM.getAsset("./img/runingman.png"), 0, 885, 165, 295, 0.05, 28, false, false);
-//     this.jumping = false;
-//     this.radius = 100;
-//     this.ground = 400;
-//     Entity.call(this, game, 100, 400);
-// }
-
-// Unicorn.prototype = new Entity();
-// Unicorn.prototype.constructor = Unicorn;
-
-// Unicorn.prototype.update = function () {
-//     if (this.game.space) this.jumping = true;
-//     if (this.jumping) {
-//         if (this.jumpAnimation.isDone()) {
-//             this.jumpAnimation.elapsedTime = 0;
-//             this.jumping = false;
-//         }
-//         var jumpDistance = this.jumpAnimation.elapsedTime / this.jumpAnimation.totalTime;
-//         var totalHeight = 100;
-
-//         if (jumpDistance > 0.5)
-//             jumpDistance = 1 - jumpDistance;
-
-//         //var height = jumpDistance * 2 * totalHeight;
-//         var height = totalHeight*(-4 * (jumpDistance * jumpDistance - jumpDistance));
-//         this.y = this.ground - height;
-//     }
-//     Entity.prototype.update.call(this);
-// }
-
-// Unicorn.prototype.draw = function (ctx) {
-//     if (this.jumping) {
-//         this.jumpAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y,0.5);
-//     }
-//     else {
-//         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y,0.5);
-//     }
-//     Entity.prototype.draw.call(this);
-// }
-
-
-
-
-
-
-
-// inheritance 
-// function Cheetah(game, spritesheet) {
-//     this.animation = new Animation(spritesheet, 165, 295, 12, 0.05, 26, true, 0.5);
-//     this.speed = 000;
-//     this.ctx = game.ctx;
-//     Entity.call(this, game, 100, 390);
-// }
-
-// Cheetah.prototype = new Entity();
-// Cheetah.prototype.constructor = Cheetah;
-
-// Cheetah.prototype.update = function () {
-//     this.x += this.game.clockTick * this.speed;
-//     if (this.x > 800) this.x = -230;
-//     Entity.prototype.update.call(this);
-// }
-
-// Cheetah.prototype.draw = function () {
-//     this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
-//     Entity.prototype.draw.call(this);
-// }
-
 
 // no inheritance
-function MovingBackground(game, spritesheet,thex,they, theimgwidth,theimgheight,speed) {
+function NotMovingElement(game, spritesheet,thex,they, theimgwidth,theimgheight,speed) {
     this.x = thex;
     this.y = they;
     this.myimgwidth = theimgwidth;
@@ -140,17 +70,16 @@ function MovingBackground(game, spritesheet,thex,they, theimgwidth,theimgheight,
     this.myspeed = speed;
 };
 
-MovingBackground.prototype.draw = function () {
+NotMovingElement.prototype.draw = function () {
     this.ctx.drawImage(this.spritesheet,
                    this.x, this.y,this.myimgwidth,this.myimgheight);
 };
 
-MovingBackground.prototype.update = function () {
+NotMovingElement.prototype.update = function () {
     //this.x-=this.myspeed;
     if(this.x< -this.myimgwidth) this.x = 800;
 };
 //
-
 
 
 
@@ -238,28 +167,7 @@ Sun.prototype.update = function () {
 
 
 
-function Fire(game) {
-    this.animation = new Animation(AM.getAsset("./img/fire.png"), 0, 0, 64, 128, 0.05, 32, true, false);
-    //this.jumpAnimation = new Animation(AM.getAsset("./img/fire.png"), 0, 885, 165, 295, 0.05, 28, false, false);
-    this.jumping = false;
-    this.radius = 100;
-    this.ground = 100;
-    Entity.call(this, game, 500, 370);
-}
 
-Fire.prototype = new Entity();
-Fire.prototype.constructor = Fire;
-
-Fire.prototype.update = function () {
-    this.x -= 3;
-    if (this.x < -64) this.x = 864;
-    Entity.prototype.update.call(this);
-}
-
-Fire.prototype.draw = function (ctx) {
-    this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1.5);
-    Entity.prototype.draw.call(this);
-}
 
 
 
@@ -299,66 +207,7 @@ Land.prototype.update = function () {
 };
 
 
-
-
-
-
-
-function Player(game) {
-    this.animation = new Animation(AM.getAsset("./img/sk.png"), 64, 0, 64, 64, 0.05, 1, true, false);
-
-    this.northanimation = new Animation(AM.getAsset("./img/sk.png"), 64, 0, 64, 64, 0.05, 8, true, false);
-
-    this.jumpAnimation = new Animation(AM.getAsset("./img/runingman.png"), 0, 885, 165, 295, 0.05, 28, false, false);
-    this.jumping = false;
-    this.north = false;
-    this.radius = 100;
-    this.ground = 400;
-    Entity.call(this, game, 100, 400);
-}
-
-Player.prototype = new Entity();
-Player.prototype.constructor = Player;
-
-Player.prototype.update = function () {
-    if (this.game.space) this.jumping = true;
-    if (this.jumping) {
-        if (this.jumpAnimation.isDone()) {
-            this.jumpAnimation.elapsedTime = 0;
-            this.jumping = false;
-        }
-        var jumpDistance = this.jumpAnimation.elapsedTime / this.jumpAnimation.totalTime;
-        var totalHeight = 100;
-
-        if (jumpDistance > 0.5)
-            jumpDistance = 1 - jumpDistance;
-
-        //var height = jumpDistance * 2 * totalHeight;
-        var height = totalHeight*(-4 * (jumpDistance * jumpDistance - jumpDistance));
-        this.y = this.ground - height;
-    } 
-    Entity.prototype.update.call(this);
-}
-
-Player.prototype.draw = function (ctx) {
-    // if (this.jumping) {
-    //     this.jumpAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1);
-    // }
-    // else {
-    //     this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1.5);
-    // }
-    if (this.north) {
-        this.northnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1);
-    }
-    else {
-        this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1.5);
-    }
-    Entity.prototype.draw.call(this);
-}
-
-
-
-function OBJ(sx,sy,sw,sh,cx,cy,cw,ch,img) {
+function Player(sx,sy,sw,sh,cx,cy,cw,ch,img) {
     this.sheetX = sx;
     this.sheetY = sy;
     this.sheetWidth = sw;
@@ -372,7 +221,7 @@ function OBJ(sx,sy,sw,sh,cx,cy,cw,ch,img) {
     this.speed = 15;
 }
 
-OBJ.prototype.goForward = function(dir) {
+Player.prototype.goForward = function(dir) {
     //console.log("go");
     switch(dir) {
       case 38:
@@ -465,39 +314,11 @@ OBJ.prototype.goForward = function(dir) {
     }
 }
 
-OBJ.prototype.update = function() {
+Player.prototype.update = function() {
 
 }
 
-// OBJ.prototype.outOfBound = function(x ,y){
-
-//     if(x + this.speed >= 1430 || x - this.speed <= -30) return false;
-//     if(y + this.canvasHeight+ this.speed >= 750 || y - this.speed <= -30) return false;
-
-//     return true;
-        
-// }
-
-// OBJ.prototype.nextFrame = function(dir) {
-//     switch(dir) {
-//       case 'south':
-//         this.canvasY += 3;
-//         break;
-//       case 'north':
-//         this.canvasY -= 3;
-//         break;
-//       case 'west':
-//         this.canvasX -= 3;
-//         break;
-//       case 'east':
-//         this.canvasX += 3;
-//         break;
-//       default:
-//         // code block
-//     }
-// }
-
-OBJ.prototype.draw = function (ctx) {
+Player.prototype.draw = function (ctx) {
     //console.log("inside draw");
     ctx.drawImage(this.img,
         this.sheetX, this.sheetY,  // source from sheet
@@ -605,19 +426,7 @@ Redstone1.prototype.update = function () {
 
 
 
-AM.queueDownload("./img/RobotUnicorn.png");
-AM.queueDownload("./img/guy.jpg");
-AM.queueDownload("./img/mushroomdude.png");
-AM.queueDownload("./img/runningcat.png");
-AM.queueDownload("./img/background.jpg");
-AM.queueDownload("./img/runingman.png");
-AM.queueDownload("./img/tree1.png");
-AM.queueDownload("./img/tree2.png");
-AM.queueDownload("./img/mountain.png");
-AM.queueDownload("./img/gound.png");
-AM.queueDownload("./img/sun.png");
-AM.queueDownload("./img/fire.png");
-AM.queueDownload("./img/grass.png");
+
 AM.queueDownload("./img/suitMan.png");
 
 
@@ -639,7 +448,8 @@ AM.queueDownload("./img/redstone.png");
 
 
 
-var bgname = "./img/bg3.png";
+
+var bgname = "./img/bgfinal.png";
 
 AM.queueDownload(bgname);
 
@@ -650,26 +460,7 @@ AM.downloadAll(function () {
 
     var gameEngine = new GameEngine();
     gameEngine.init(ctx);
-
-
-
-
-
-    gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset(bgname),0,0,1400,750,1));
-
-    // var player = new Player(gameEngine);
-    // gameEngine.addEntity(player);
-
-
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/416.png"),50,50,50,50,1));
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/akm.png"),100,100,50,50,1));
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/drink.png"),150,150,50,50,1));
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/firstaid.png"),200,200,50,50,1));
-
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/grenade.png"),250,250,50,50,1));
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/groza.png"),300,300,50,50,1));
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/m9.png"),350,350,50,50,1));
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/painkiller.png"),400,400,50,50,1));
+    gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset(bgname),0,0,1400,750,1));
 
 
     var glasssize = 90;
@@ -677,50 +468,50 @@ AM.downloadAll(function () {
 
 
 
-gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-    ,353,288,94,94
-    ,0,660,glasssize,glasssize));
+// gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+//     ,353,288,94,94
+//     ,0,660,glasssize,glasssize));
 
-        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,353,288,94,94
-        ,1310,660,glasssize,glasssize));
+//         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+//         ,353,288,94,94
+//         ,1310,660,glasssize,glasssize));
 
-        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,353,288,94,94
-        ,0,0,glasssize,glasssize));
+//         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+//         ,353,288,94,94
+//         ,0,0,glasssize,glasssize));
 
-        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,353,288,94,94
-        ,1310,0,glasssize,glasssize));
-
-
-
-    for(var i=0; i<28 ; i++) {
-        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,381,290,40,94
-        ,47 + 47*i,0,47,glasssize));
-    }
+//         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+//         ,353,288,94,94
+//         ,1310,0,glasssize,glasssize));
 
 
 
+//     for(var i=0; i<28 ; i++) {
+//         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+//         ,381,290,40,94
+//         ,47 + 47*i,0,47,glasssize));
+//     }
 
-    for(var i=0; i<28 ; i++) {
-        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,381,290,40,94
-        ,47 + 47*i,660,47,glasssize));
-    }
 
-    for(var i=0; i<13 ; i++) {
-        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,353,330,94,36
-        ,0,73 + 47*i,glasssize,48));
-    }
 
-    for(var i=0; i<13 ; i++) {
-        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,353,330,94,36
-        ,1310,73 + 47*i,glasssize,48));
-    }
+
+//     for(var i=0; i<28 ; i++) {
+//         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+//         ,381,290,40,94
+//         ,47 + 47*i,660,47,glasssize));
+//     }
+
+//     for(var i=0; i<13 ; i++) {
+//         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+//         ,353,330,94,36
+//         ,0,73 + 47*i,glasssize,48));
+//     }
+
+//     for(var i=0; i<13 ; i++) {
+//         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+//         ,353,330,94,36
+//         ,1310,73 + 47*i,glasssize,48));
+//     }
 
     // for(var i=0; i<28 ; i++) {
     //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
@@ -733,95 +524,200 @@ gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
     //     }
     // }
 
-    for(var i=0; i<27 ; i++) {
-        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,381,290,40,94
-        ,60+47*i,300,47,glasssize));
-    }
+    // for(var i=0; i<27 ; i++) {
+    //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    //     ,381,290,40,94
+    //     ,60+47*i,300,47,glasssize));
+    // }
+
+
+    // for(var i=0; i<5 ; i++) {
+    //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    //     ,353,330,94,36
+    //     ,600,73 + 47*i,glasssize,48));
+    // }
+
+    // for(var i=0; i<6 ; i++) {
+    //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    //     ,353,330,94,36
+    //     ,600,380 + 47*i,glasssize,48));
+    // }
+
+    // for(var i=0; i<5 ; i++) {
+    //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    //     ,353,330,94,36
+    //     ,900,73 + 47*i,glasssize,48));
+    // }
+
+    // for(var i=0; i<6 ; i++) {
+    //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    //     ,353,330,94,36
+    //     ,1100,380 + 47*i,glasssize,48));
+    // }
+
+
+
+    // for(var i=0; i<8 ; i++) {
+    //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    //     ,381,290,40,94
+    //     ,75+47*i,500,47,glasssize));
+    // }
 
 
 
     //tree
 
 
-    for(var i=0; i<6 ; i++) {
+    // top left
+    for(var i=0; i<9 ; i++) {
         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,225,417,63,93
-        ,70 + 55 * i,60,63,93));
+        ,225,425,61,81
+        ,80 + 58 * i,75,61,81));
     }
 
     for(var i=0; i<3 ; i++) {
         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,225,417,63,93
-        ,70, 60 + 60 * i,63,93));
+        ,225,425,61,81
+        ,80, 120 + 50 * i,61,81));
+    }
+
+    //bottom right
+    for(var i=0; i<5 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,225,425,61,81
+        ,1180, 380 + 50 *i,61,81));
+    }
+
+    for(var i=0; i<5 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,225,425,61,81
+        ,1250, 380 + 50 *i,61,81));
+    }
+
+
+    // gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    // ,351,382,33,67
+    // ,600, 300,33,67));
+
+    // sharp stone
+    for(var i=0; i<6 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,351,385,33,67
+        ,80 + 33*i *3, 380,33,67));
+    }
+
+    for(var i=0; i<16 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,351,385,33,67
+        ,80 + 33*i, 440,33,67));
+    }
+
+    for(var i=0; i<6 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,351,385,33,67
+        ,80 + 33*i *3, 590,33,67));
+    }
+
+
+    // circle stone
+    for(var i=0; i<10 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,460,460,42,54
+        ,680 + 42*i, 605,42,54));
+    }
+
+    for(var i=0; i<10 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,460,460,42,54
+        ,680 + 42*i, 380,42,54));
+    }
+
+ 
+
+    for(var i=0; i<2 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,460,460,42,54
+        ,740 + 42*i*6, 540,42,54));
     }
 
     for(var i=0; i<2 ; i++) {
         gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
-        ,225,417,63,93
-        ,400, 60 + 60 * i,63,93));
+        ,460,460,42,54
+        ,740 + 42*i*6, 580,42,54));
     }
 
 
+    for(var i=0; i<2 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,460,460,42,54
+        ,860, 420 + 54*i,42,54));
+    }
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/mountain.png"),200,100,600,400,1));
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/mountain.png"),400,0,800,506,1));
+    //flowers
+    for(var i=0; i<6 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,224,318,30,30
+        ,1060 + 30*i, 145,30,30));
+    }
+    for(var i=0; i<6 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,224,318,30,30
+        ,1060 + 30*i, 170,30,30));
+    }
 
-    // //gameEngine.addEntity(new Gound(gameEngine, AM.getAsset("./img/gound.png")));
+    for(var i=0; i<6 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,224,318,30,30
+        ,1060 + 30*i, 190,30,30));
+    }
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/gound.png"),
-    // 1788,400,1788,300,2));
+    for(var i=0; i<2 ; i++) {
+        gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+        ,128,385,93,125
+        ,750 , 80 + 100*i,93,125));
+    }
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/gound.png"),
-    // 0,400,1788,300,2));
 
-
-
-        gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/416.png"),300,150,50,50,1));
-    gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/akm.png"),300,200,50,50,1));
-    gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/drink.png"),150,150,50,50,1));
-    gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/firstaid.png"),200,150,50,50,1));
-
-    gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/grenade.png"),250,150,50,50,1));
-    gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/groza.png"),300,250,50,50,1));
-    gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/m9.png"),350,150,50,50,1));
-    gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/painkiller.png"),150,200,50,50,1));
+    // for(var i=0; i<6 ; i++) {
+    //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    //     ,224,318,30,30
+    //     ,1060 + 30*i, 210,30,30));
+    // }
     
+    // status
+    gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    ,415,451,35,63
+    ,1130, 150, 35,63));
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/tree1.png"),
-    // 200,300,200,200,2));
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/tree1.png"),
-    // 400,300,200,200,2));
+    // for(var i=0; i<2 ; i++) {
+    //     gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
+    //     ,225,417,63,93
+    //     ,400, 60 + 60 * i,63,93));
+    // }
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/tree1.png"),
-    // 700,350,150,150,2));
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/tree2.png"),
-    // 500,310,200,200,2));
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/tree2.png"),
-    // 100,300,200,200,2));
 
-    // gameEngine.addEntity(new MovingBackground(gameEngine, AM.getAsset("./img/tree2.png"),
-    // 800,200,300,300,2));
+        gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset("./img/416.png"),300,150,50,50,1));
+    gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset("./img/akm.png"),300,200,50,50,1));
+    gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset("./img/drink.png"),150,150,50,50,1));
+    gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset("./img/firstaid.png"),200,150,50,50,1));
 
-    // gameEngine.addEntity(new Background(gameEngine, AM.getAsset("./img/tree2.png"),100,230,200,340,3));
-    // gameEngine.addEntity(new MushroomDude(gameEngine, AM.getAsset("./img/mountain.png")));
-
+    gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset("./img/grenade.png"),250,150,50,50,1));
+    gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset("./img/groza.png"),300,250,50,50,1));
+    gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset("./img/m9.png"),350,150,50,50,1));
+    gameEngine.addEntity(new NotMovingElement(gameEngine, AM.getAsset("./img/painkiller.png"),150,200,50,50,1));
     
-    //gameEngine.addEntity(unicorn);
-    // var player = new OBJ(gameEngine);
-    // gameEngine.addEntity(player);
-
-    //var fire = new Fire(gameEngine);
     gameEngine.addEntity(new Redstone1(gameEngine, AM.getAsset("./img/redstone.png"),1401,751,50,50,1));
     gameEngine.addEntity(new Redstone(gameEngine, AM.getAsset("./img/redstone.png"),1401,751,50,50,1));
-    gameEngine.addEntity(new OBJ(0,0,64,64,100,100,100,100,AM.getAsset("./img/sk.png")));
+    gameEngine.addEntity(new Player
+        (0,0,64,64,100,100,100,100,AM.getAsset("./img/sk.png")));
 
 
-    gameEngine.addEntity(new OBJ(0,0,64,64,100,100,100,100,AM.getAsset("./img/suitMan.png")));
-    //gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/guy.jpg")));
+    gameEngine.addEntity(new Player
+        (0,0,64,64,100,100,100,100,AM.getAsset("./img/suitMan.png")));
+    // gameEngine.addEntity(new Guy(gameEngine, AM.getAsset("./img/guy.jpg")));
 
     gameEngine.start();
     console.log("All Done!");
@@ -861,3 +757,150 @@ gameEngine.addEntity(new Land(gameEngine, AM.getAsset("./img/land.png")
 //     }
 // };
 // setInterval(update,10);
+
+
+
+
+
+
+
+// function Player(game) {
+//     this.animation = new Animation(AM.getAsset("./img/sk.png"), 64, 0, 64, 64, 0.05, 1, true, false);
+
+//     this.northanimation = new Animation(AM.getAsset("./img/sk.png"), 64, 0, 64, 64, 0.05, 8, true, false);
+
+//     this.jumpAnimation = new Animation(AM.getAsset("./img/runingman.png"), 0, 885, 165, 295, 0.05, 28, false, false);
+//     this.jumping = false;
+//     this.north = false;
+//     this.radius = 100;
+//     this.ground = 400;
+//     Entity.call(this, game, 100, 400);
+// }
+
+// Player.prototype = new Entity();
+// Player.prototype.constructor = Player;
+
+// Player.prototype.update = function () {
+//     if (this.game.space) this.jumping = true;
+//     if (this.jumping) {
+//         if (this.jumpAnimation.isDone()) {
+//             this.jumpAnimation.elapsedTime = 0;
+//             this.jumping = false;
+//         }
+//         var jumpDistance = this.jumpAnimation.elapsedTime / this.jumpAnimation.totalTime;
+//         var totalHeight = 100;
+
+//         if (jumpDistance > 0.5)
+//             jumpDistance = 1 - jumpDistance;
+
+//         //var height = jumpDistance * 2 * totalHeight;
+//         var height = totalHeight*(-4 * (jumpDistance * jumpDistance - jumpDistance));
+//         this.y = this.ground - height;
+//     } 
+//     Entity.prototype.update.call(this);
+// }
+
+// Player.prototype.draw = function (ctx) {
+//     // if (this.jumping) {
+//     //     this.jumpAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1);
+//     // }
+//     // else {
+//     //     this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1.5);
+//     // }
+//     if (this.north) {
+//         this.northnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1);
+//     }
+//     else {
+//         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1.5);
+//     }
+//     Entity.prototype.draw.call(this);
+// }
+
+
+// function Unicorn(game) {
+//     this.animation = new Animation(AM.getAsset("./img/runingman.png"), 0, 0, 165, 295, 0.05, 25, true, false);
+//     this.jumpAnimation = new Animation(AM.getAsset("./img/runingman.png"), 0, 885, 165, 295, 0.05, 28, false, false);
+//     this.jumping = false;
+//     this.radius = 100;
+//     this.ground = 400;
+//     Entity.call(this, game, 100, 400);
+// }
+
+// Unicorn.prototype = new Entity();
+// Unicorn.prototype.constructor = Unicorn;
+
+// Unicorn.prototype.update = function () {
+//     if (this.game.space) this.jumping = true;
+//     if (this.jumping) {
+//         if (this.jumpAnimation.isDone()) {
+//             this.jumpAnimation.elapsedTime = 0;
+//             this.jumping = false;
+//         }
+//         var jumpDistance = this.jumpAnimation.elapsedTime / this.jumpAnimation.totalTime;
+//         var totalHeight = 100;
+
+//         if (jumpDistance > 0.5)
+//             jumpDistance = 1 - jumpDistance;
+
+//         //var height = jumpDistance * 2 * totalHeight;
+//         var height = totalHeight*(-4 * (jumpDistance * jumpDistance - jumpDistance));
+//         this.y = this.ground - height;
+//     }
+//     Entity.prototype.update.call(this);
+// }
+
+// Unicorn.prototype.draw = function (ctx) {
+//     if (this.jumping) {
+//         this.jumpAnimation.drawFrame(this.game.clockTick, ctx, this.x, this.y,0.5);
+//     }
+//     else {
+//         this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y,0.5);
+//     }
+//     Entity.prototype.draw.call(this);
+// }
+
+// inheritance 
+// function Cheetah(game, spritesheet) {
+//     this.animation = new Animation(spritesheet, 165, 295, 12, 0.05, 26, true, 0.5);
+//     this.speed = 000;
+//     this.ctx = game.ctx;
+//     Entity.call(this, game, 100, 390);
+// }
+
+// Cheetah.prototype = new Entity();
+// Cheetah.prototype.constructor = Cheetah;
+
+// Cheetah.prototype.update = function () {
+//     this.x += this.game.clockTick * this.speed;
+//     if (this.x > 800) this.x = -230;
+//     Entity.prototype.update.call(this);
+// }
+
+// Cheetah.prototype.draw = function () {
+//     this.animation.drawFrame(this.game.clockTick, this.ctx, this.x, this.y);
+//     Entity.prototype.draw.call(this);
+// }
+
+
+// function Fire(game) {
+//     this.animation = new Animation(AM.getAsset("./img/fire.png"), 0, 0, 64, 128, 0.05, 32, true, false);
+//     //this.jumpAnimation = new Animation(AM.getAsset("./img/fire.png"), 0, 885, 165, 295, 0.05, 28, false, false);
+//     this.jumping = false;
+//     this.radius = 100;
+//     this.ground = 100;
+//     Entity.call(this, game, 500, 370);
+// }
+
+// Fire.prototype = new Entity();
+// Fire.prototype.constructor = Fire;
+
+// Fire.prototype.update = function () {
+//     this.x -= 3;
+//     if (this.x < -64) this.x = 864;
+//     Entity.prototype.update.call(this);
+// }
+
+// Fire.prototype.draw = function (ctx) {
+//     this.animation.drawFrame(this.game.clockTick, ctx, this.x, this.y,1.5);
+//     Entity.prototype.draw.call(this);
+// }

@@ -7,7 +7,7 @@
     <script type="text/javascript" src="./gameengine.js"></script>
     <script type="text/javascript" src="./assetmanager.js"></script>
     <script type="text/javascript" src="./main.js"></script>
-
+<!-- 
     
         <style>
         .container {
@@ -71,29 +71,29 @@
         .chooseChar .btn2:hover {
         background-color: black;
         }
-        </style>
+        </style> -->
 </head>
 <body>
-    <div class="container" id="coverContainer"> 
+    <!-- <div class="container" id="coverContainer"> 
         <img id = "cover" src="./img/pixelcover.png" alt="Flowers in Chania" >
         <button class="btn" id="startBtn">START</button>
     </div>
         <audio id="chooseSong" loop>
-                <!-- <source src="horse.ogg" type="audio/ogg"> -->
-                <source src="./sound/.mp3" type="audio/mpeg">
+            
+                <source src="./sound/choose.mp3" type="audio/mpeg">
         </audio>
         <audio id="china" loop>
-                <!-- <source src="horse.ogg" type="audio/ogg"> -->
-                <source src="./sound/.mp3" type="audio/mpeg">
+          
+                <source src="./sound/china.mp3" type="audio/mpeg">
         </audio>
 
     <div class="chooseChar" id="chooseContainer"> 
             <img id = "select" src="./img/select.jpg" alt="Flowers in Chania" >
             <button class="btn2" id="gamestart">START</button>
-    </div>
-    <canvas id="gameWorld" tabindex="1" width="1400" height="750" style="border: 1px solid brown; background: lightskyblue"></canvas>
+    </div> -->
+
     
-    <script>
+    <!-- <script>
             var x = document.getElementById("startBtn");
             
             x.addEventListener("click", mySecondFunction);
@@ -121,9 +121,12 @@
                 document.getElementById('gameWorld').focus();;
 
             }
+
+            
             
   
-    </script>
+    </script> -->
   
+    <canvas id="gameWorld" tabindex="1" width="1400" height="750" style="border: 1px solid brown; background: lightskyblue"></canvas>
 </body>
 </html>
